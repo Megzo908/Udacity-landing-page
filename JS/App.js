@@ -1,7 +1,7 @@
-mybutton = document.getElementById("myBtn")
+mybutton = document.getElementById('myBtn')
 
-const menu = document.getElementById("navbar__list")
-const sections = document.querySelectorAll("section")
+const menu = document.getElementById('navbar__list')
+const sections = document.querySelectorAll('section')
 
 window.onscroll = () => {
   scrollFunction()
@@ -9,18 +9,18 @@ window.onscroll = () => {
 
 buildMenuBar()
 
-const burger = document.querySelector("svg")
-const nav = document.querySelector(".page__header")
-burger.addEventListener("click", () => {
-  nav.classList.toggle("hidden")
+const burger = document.querySelector('svg')
+const nav = document.querySelector('.page__header')
+burger.addEventListener('click', () => {
+  nav.classList.toggle('hidden')
 })
 
 //scroll to top button
 function scrollFunction() {
   if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
-    mybutton.style.display = "block"
+    mybutton.style.display = 'block'
   } else {
-    mybutton.style.display = "none"
+    mybutton.style.display = 'none'
   }
 }
 //scroll to the top
@@ -31,61 +31,81 @@ function topFunction() {
 
 //The main function on the page, build the navbar dynamically from section names, adds active class to the nav links according to the section visible on the screen and makes the sections collapsible
 function buildMenuBar() {
-  let navList = document.createElement("li")
+  let navList = document.createElement('li')
 
   sections.forEach(section => {
-    const secid = section.getAttribute("id")
-    const secDataNav = section.getAttribute("data-nav")
+    const secid = section.getAttribute('id')
+    const secDataNav = section.getAttribute('data-nav')
+    const content = section.querySelector('.content')
+    const h2 = section.querySelector('h2')
 
     //builds navbar
     navList.innerHTML += `<a href='#${secid}' class='menu__link' data-nav=${secDataNav}>${secDataNav}</a>`
     menu.append(navList)
 
     //adds and removes active class from the section based on the output of the isInViewport function
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       if (isInViewport(section)) {
-        section.classList.add("your-active-class")
+        section.classList.add('your-active-class')
         addActiveClass(secid)
-      } else if (section.classList.contains("your-active-class")) {
-        section.classList.remove("your-active-class")
-        removeActiveClass(secid)
+      } else {
+        section.classList.remove('your-active-class')
+        // removeActiveClass(secid)
       }
     })
     //section collapsing
-    section.addEventListener("click", () => {
-      const content = section.querySelector(".content")
-      const h2 = section.querySelector("h2")
-      section.classList.toggle("hidden")
-      h2.classList.toggle("active")
-      if (!section.classList.contains("hidden")) {
-        content.style.maxHeight = content.scrollHeight + "px"
+    section.addEventListener('click', () => {
+      section.classList.toggle('hidden')
+      h2.classList.toggle('active')
+      if (!section.classList.contains('hidden')) {
+        content.style.maxHeight = content.scrollHeight + 'px'
       } else {
-        content.style.maxHeight = content.scrollHeight + "px"
+        content.style.maxHeight = content.scrollHeight + 'px'
         setTimeout(() => {
           content.style.maxHeight = 0
         }, 50)
       }
     })
+
+    //Active class on clicked links
+    const navLinks = document.querySelectorAll('.menu__link')
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault()
+        classtoggle(navLinks, 'active', link)
+        document
+          .querySelector(`#${e.target.dataset.nav}`)
+          .scrollIntoView({ behavior: 'smooth' })
+      })
+    })
+  })
+}
+
+function classtoggle(Array, classname, clickedItem) {
+  Array.forEach(arrayItem => {
+    arrayItem.classList.remove(classname)
+    clickedItem.classList.add(classname)
   })
 }
 
 function addActiveClass(id) {
-  const menuLinks = document.querySelectorAll(".menu__link")
+  const menuLinks = document.querySelectorAll('.menu__link')
   const current = document.querySelector(`[href='#${id}']`)
   menuLinks.forEach(link => {
-    link.classList.remove("active")
-    current.classList.add("active")
+    link.classList.remove('active')
+    current.classList.add('active')
   })
 }
-
-function removeActiveClass(id) {
-  const menuLinks = document.querySelectorAll(".menu__link")
-  const current = document.querySelector(`[href='#${id}']`)
-  menuLinks.forEach(link => {
-    link.classList.remove("active")
-    current.classList.remove("active")
-  })
-}
+//not used
+// function removeActiveClass(id) {
+//   const menuLinks = document.querySelectorAll(".menu__link")
+//   const current = document.querySelector(`[href='#${id}']`)
+//   menuLinks.forEach(link => {
+//     link.classList.remove("active")
+//     current.classList.remove("active")
+//   })
+// }
 //checks if the element is visible to the user or not(used in the buildMenuBar using section as the parameter)
 function isInViewport(element) {
   const rect = element.getBoundingClientRect()
