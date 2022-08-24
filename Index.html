@@ -1,140 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Manipulating the DOM</title>
+    <!-- Load Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load icons from fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+      integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+      crossorigin="anonymous"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Manipulating the DOM</title>
-  <!-- Load Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">
-  <!-- Load icons from fontawesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-    integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <!-- Load Styles -->
+    <link href="Styles.css" rel="stylesheet" />
+    <script defer src="App.js"></script>
+  </head>
 
-  <!-- Load Styles -->
-  <link href="css/styles.css" rel="stylesheet">
-</head>
-
-<body>
-  <!-- HTML Follows BEM naming conventions 
+  <body>
+    <!-- HTML Follows BEM naming conventions 
   IDs are only used for sections to connect menu anchors to sections -->
-  
-  <svg class="burger-open" xmlns="http://www.w3.org/2000/svg" width="24" height="21"><g fill="#D0D6F9" fill-rule="evenodd"><path d="M0 0h24v3H0zM0 9h24v3H0zM0 18h24v3H0z"/></g></svg>
-  
-  <header class="page__header">
-    <nav class="navbar__menu">
-      <!-- Navigation starts as empty UL that will be populated with JS -->
-      <ul id="navbar__list"></ul>
-    </nav>
-  </header>
-  <!-- Create a button that will scroll the page to the top when clicked on -->
-  <button onclick="topFunction()" id="myBtn" title="Go to top" class="btn"><span
-      class="fas fa-chevron-up"></span></button>
 
-  <main>
-    <header class="main__hero">
-      <h1>Landing Page</h1>
+    <svg
+      class="burger-open"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="21"
+    >
+      <g fill="#D0D6F9" fill-rule="evenodd">
+        <path d="M0 0h24v3H0zM0 9h24v3H0zM0 18h24v3H0z" />
+      </g>
+    </svg>
+
+    <header class="page__header">
+      <nav class="navbar__menu">
+        <!-- Navigation starts as empty UL that will be populated with JS -->
+        <ul id="navbar__list"></ul>
+      </nav>
     </header>
-    <!-- Each Section has an ID (used for the anchor) and a data attribute that will populate the li node.
+    <!-- Create a button that will scroll the page to the top when clicked on -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top" class="btn">
+      <span class="fas fa-chevron-up"></span>
+    </button>
+
+    <main>
+      <header class="main__hero">
+        <h1>Landing Page</h1>
+      </header>
+      <!-- Each Section has an ID (used for the anchor) and a data attribute that will populate the li node.
     Adding more sections will automatically populate nav. The first section is set to active class by default -->
-    <section id="Section1" data-nav="Section1">
-      <div class="landing__container">
-        <h2>Section 1</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-            dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-            imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-            bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-            elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-            nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-            semper in tellus. Sed congue et odio sed euismod.</p>
+      <section id="Section1" data-nav="Section1">
+        <div class="landing__container">
+          <h2>Section 1</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+              fermentum metus faucibus lectus pharetra dapibus. Suspendisse
+              potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget
+              lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed
+              convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla
+              eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam
+              nunc eu augue. Pellentesque maximus imperdiet elit a pharetra.
+              Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi
+              a tincidunt felis. Sed leo nunc, pharetra et elementum non,
+              faucibus vitae elit. Integer nec libero venenatis libero ultricies
+              molestie semper in tellus. Sed congue et odio sed euismod.
+            </p>
 
-          <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-            luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-            porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+            <p>
+              Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar
+              gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam.
+              Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum
+              consectetur porttitor. Suspendisse imperdiet porttitor tortor,
+              eget elementum tortor mollis non.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    <section id="Section2" data-nav="Section2">
-      <div class="landing__container">
-        <h2>Section 2</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-            dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-            imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-            bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-            elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-            nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-            semper in tellus. Sed congue et odio sed euismod.</p>
+      </section>
+      <section id="Section2" data-nav="Section2">
+        <div class="landing__container">
+          <h2>Section 2</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+              fermentum metus faucibus lectus pharetra dapibus. Suspendisse
+              potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget
+              lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed
+              convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla
+              eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam
+              nunc eu augue. Pellentesque maximus imperdiet elit a pharetra.
+              Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi
+              a tincidunt felis. Sed leo nunc, pharetra et elementum non,
+              faucibus vitae elit. Integer nec libero venenatis libero ultricies
+              molestie semper in tellus. Sed congue et odio sed euismod.
+            </p>
 
-          <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-            luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-            porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+            <p>
+              Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar
+              gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam.
+              Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum
+              consectetur porttitor. Suspendisse imperdiet porttitor tortor,
+              eget elementum tortor mollis non.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    <section id="Section3" data-nav="Section3">
-      <div class="landing__container">
-        <h2>Section 3</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-            dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-            imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-            bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-            elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-            nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-            semper in tellus. Sed congue et odio sed euismod.</p>
+      </section>
+      <section id="Section3" data-nav="Section3">
+        <div class="landing__container">
+          <h2>Section 3</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+              fermentum metus faucibus lectus pharetra dapibus. Suspendisse
+              potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget
+              lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed
+              convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla
+              eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam
+              nunc eu augue. Pellentesque maximus imperdiet elit a pharetra.
+              Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi
+              a tincidunt felis. Sed leo nunc, pharetra et elementum non,
+              faucibus vitae elit. Integer nec libero venenatis libero ultricies
+              molestie semper in tellus. Sed congue et odio sed euismod.
+            </p>
 
-          <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-            luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-            porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+            <p>
+              Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar
+              gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam.
+              Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum
+              consectetur porttitor. Suspendisse imperdiet porttitor tortor,
+              eget elementum tortor mollis non.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    <section id="Section4" data-nav="Section4">
-      <div class="landing__container">
-        <h2>Section 4</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-            dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-            imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-            bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-            elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-            nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-            semper in tellus. Sed congue et odio sed euismod.</p>
+      </section>
+      <section id="Section4" data-nav="Section4">
+        <div class="landing__container">
+          <h2>Section 4</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+              fermentum metus faucibus lectus pharetra dapibus. Suspendisse
+              potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget
+              lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed
+              convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla
+              eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam
+              nunc eu augue. Pellentesque maximus imperdiet elit a pharetra.
+              Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi
+              a tincidunt felis. Sed leo nunc, pharetra et elementum non,
+              faucibus vitae elit. Integer nec libero venenatis libero ultricies
+              molestie semper in tellus. Sed congue et odio sed euismod.
+            </p>
 
-          <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-            luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-            porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+            <p>
+              Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar
+              gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam.
+              Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum
+              consectetur porttitor. Suspendisse imperdiet porttitor tortor,
+              eget elementum tortor mollis non.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-    
-    <section id="Section5" data-nav="Section5">
-      <div class="landing__container">
-        <h2>Section 5</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra
-            dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus
-            imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget
-            bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet
-            elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo
-            nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie
-            semper in tellus. Sed congue et odio sed euismod.</p>
+      </section>
 
-          <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel
-            luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur
-            porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
+      <section id="Section5" data-nav="Section5">
+        <div class="landing__container">
+          <h2>Section 5</h2>
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+              fermentum metus faucibus lectus pharetra dapibus. Suspendisse
+              potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget
+              lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed
+              convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla
+              eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam
+              nunc eu augue. Pellentesque maximus imperdiet elit a pharetra.
+              Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi
+              a tincidunt felis. Sed leo nunc, pharetra et elementum non,
+              faucibus vitae elit. Integer nec libero venenatis libero ultricies
+              molestie semper in tellus. Sed congue et odio sed euismod.
+            </p>
+
+            <p>
+              Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar
+              gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam.
+              Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum
+              consectetur porttitor. Suspendisse imperdiet porttitor tortor,
+              eget elementum tortor mollis non.
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
-
-  </main>
-  <footer class="page__footer">
-    <p>&copy Udacity</p>
-  </footer>
-  <script defer src="js/app.js"></script>
-</body>
-
+      </section>
+    </main>
+    <footer class="page__footer">
+      <p>&copy Udacity</p>
+    </footer>
+  </body>
 </html>
